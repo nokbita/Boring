@@ -1,6 +1,7 @@
 package controller;
 
 import entry.Student;
+import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -19,25 +20,20 @@ public class FindStu extends HttpServlet {
 
         // 输入查找信息为空，查找所有学生
         if (findInfo == null || "".equals(findInfo)) {
-            request.getRequestDispatcher("/QueryAllStudents.do").forward(request, response);
+            request.getRequestDispatcher("QueryAllStudents.do").forward(request, response);
             return;
         }
 
         PrintWriter out = response.getWriter();
-        if (findType == null) {
-            out.println("{" +
-                    "tip:" + "查询条件有误！," +
-                    "}");
-            return;
-        }
-
+        // 按学号查找
         if (findType.equals("0")) {
-            request.getRequestDispatcher("/FindStuByNo.do").forward(request, response);
+            request.getRequestDispatcher("FindStuByNo.do").forward(request, response);
             return;
         }
 
+        // 按姓名查找
         if (findType.equals("1")) {
-            request.getRequestDispatcher("/FindStuByName.do").forward(request, response);
+            request.getRequestDispatcher("FindStuByName.do").forward(request, response);
             return;
         }
 

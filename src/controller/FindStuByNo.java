@@ -1,6 +1,7 @@
 package controller;
 
 import entry.Student;
+import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -8,22 +9,29 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet(name = "FindStuByNo", value = "/FindStuByNo.do")
 public class FindStuByNo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Student> students = new ArrayList<>();
         Student student = new StudentServiceImpl().findStuByNo(request.getParameter("findInfo"));
+        students.add(student);
 
         PrintWriter out = response.getWriter();
-        System.out.println("student 姓名查找: " + student);
+        Tip tip = null;
         if (student == null) {
-            out.println("{" +
-                    "tip:" + "查询为空," +
-                    "}");
-            return;
+            tip = new Tip("查询为空！", "black", 0);
+        } else {
+            tip = new Tip("", "", 1);
         }
-        out.println(student);
+        out.print(
+                "{" +
+                        "\"tip\":" + tip.toJSON() + ", " +
+                        "\"students\":" + students +
+                        "}"
+        );
     }
 
     @Override

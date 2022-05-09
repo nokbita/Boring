@@ -12,5 +12,9 @@
 </head>
 <body>
 ${pageContext.servletContext.contextPath}
+
+<script>
+
+</script>
 </body>
 </html>

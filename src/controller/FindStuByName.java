@@ -1,6 +1,7 @@
 package controller;
 
 import entry.Student;
+import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -17,14 +18,18 @@ public class FindStuByName extends HttpServlet {
         ArrayList<Student> students = new StudentServiceImpl().findStuByName(request.getParameter("findInfo"));
 
         PrintWriter out = response.getWriter();
-        System.out.println("student 学号查找: " + students);
-        if (students == null || students.isEmpty()) {
-            out.println("{" +
-                    "tip:" + "查询为空," +
-                    "}");
-            return;
+        Tip tip = null;
+        if (students.isEmpty()) {
+            tip = new Tip("查询为空！", "black", 0);
+        } else {
+            tip = new Tip("", "", 1);
         }
-        out.println(students);
+        out.print(
+                "{" +
+                        "\"tip\":" + tip.toJSON() + ", " +
+                        "\"students\":" + students +
+                        "}"
+        );
     }
 
     @Override

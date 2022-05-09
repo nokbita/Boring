@@ -1,9 +1,12 @@
 package controller;
 
+import entry.vo.Tip;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -11,15 +14,18 @@ import java.nio.charset.StandardCharsets;
 public class VerifyCode extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 获取验证码
         String verifyCode = request.getParameter("verifyCode");
+        // 检查验证码
         String rStr = (String) request.getSession().getAttribute("rStr");
+
         if (rStr.equals(verifyCode)) {
-            request.getRequestDispatcher("Login.do").forward(request, response);
-            return;
+            // 验证码验证成功，转发到登录servlet
+            request.getRequestDispatcher("LoginEmptyCheck.do").forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp?tip=" +
-                    URLEncoder.encode("<span style=\"color=red;\">验证码输入错误</span>", StandardCharsets.UTF_8));
-            return;
+            // 验证码验证失败，重定向到登录页
+            String urlParam = new Tip("验证码错误", "red", 0).toURLParam();
+            response.sendRedirect("./login.jsp?" + urlParam);
         }
     }
 

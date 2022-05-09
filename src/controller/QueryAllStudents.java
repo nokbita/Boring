@@ -1,6 +1,7 @@
 package controller;
 
 import entry.Student;
+import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -17,8 +18,20 @@ public class QueryAllStudents extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Student> students = new StudentServiceImpl().queryAllStudents();
+
         PrintWriter out = response.getWriter();
-        out.print(students);
+        Tip tip = null;
+        if (students.isEmpty()) {
+            tip = new Tip("查询为空！", "black", 0);
+        } else {
+            tip = new Tip("", "", 1);
+        }
+        out.print(
+                "{" +
+                "\"tip\":" + tip.toJSON() + ", " +
+                "\"students\":" + students +
+                "}"
+        );
     }
 
     @Override

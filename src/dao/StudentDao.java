@@ -14,4 +14,6 @@ public interface StudentDao {
     Student queryStuByNo(String no);
 
     ArrayList<Student> queryStuByName(String name);
+
+    int deleteStuByNo(String no);
 }

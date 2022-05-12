@@ -1,3 +1,25 @@
+
+
+function currentDate() {
+    let date = new Date();
+    let fullYear = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let week = date.getDay();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    let seconds2 = seconds < 10 ? "0" + seconds : seconds;
+
+    let elementDate = document.getElementById("date");
+    elementDate.innerText = fullYear + "年" + month + "月" + day + "日 " +
+        hours + ":" + minutes + ":" + seconds2;
+}
+
+
+
+
+
 // ajax({
 //     method: 'post',
 //     url: 'http://www',

@@ -1,0 +1,249 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    width: 1000px;
+}
+
+.show-result {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    height: 30px;
+    width: 150px;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    /*margin-bottom: 30px;*/
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    /*border-radius: 10px;*/
+    background-color: transparent;
+}
+
+select {
+    height: 30px;
+    width: 90px;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    /*border-radius: 10px;*/
+    background-color: transparent;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1200px;
+    margin: 20px auto;
+}
+
+.search {
+    display: flex;
+    justify-content: flex-end;
+    margin: 80px 0;
+}
+
+.search select {
+    width: 80px;
+}
+.search input {
+    width: 200px;
+}
+
+
+#add, .search > form > input:last-of-type {
+    height: 30px;
+    outline: none;
+    padding: 0 10px;
+
+    background-color: transparent;
+    width: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin-left: 20px;
+    box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.search > form > input:last-of-type {
+    margin-left: 0;
+}
+
+#add:hover, .search > form > input:last-of-type:hover {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    /*transform: translate(1%,1%);*/
+    box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.show-result {
+    /*border: 1px solid #000;*/
+    background-color: transparent;
+}
+#tableStu {
+    border-collapse: collapse;
+    width: 994px;
+}
+#tableStu th{
+    width: 100px;
+    height: 50px;
+    vertical-align: top;
+}
+#tableStu tr {
+    border-bottom: 1px solid #000;
+}
+
+#tableStu input, #tableStu select {
+    border: none;
+}
+
+#tableStu td {
+    box-sizing: border-box;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    width: 100px;
+    height: 40px;
+}
+
+#tableStu tr > td:first-of-type {
+    width: 60px;
+    text-align: center;
+}
+#tableStu input {
+    width: 150px;
+    height: 40px;
+    padding: 0 10px;
+}
+#tableStu tr td:nth-of-type(5) {
+    width: 80px;
+}
+#tableStu select {
+    width: 80px;
+    height: 40px;
+}
+
+#tableStu tr td:nth-last-of-type(2) {
+    width: 190px;
+}
+#tableStu tr td:nth-last-of-type(2) input {
+    width: 80px;
+    height: 30px;
+    outline: none;
+    padding: 0 10px;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    margin: 0 5px;
+}
+#tableStu tr td:nth-last-of-type(2) input:last-of-type {
+    margin-left: 13px;
+}
+#tableStu tr td:nth-last-of-type(2) input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 2px 0 rgba(0, 0, 0, 0.2);
+}
+#tableStu tr td:last-of-type {
+    width: 150px;
+    padding: 0 10px;
+}
+
+.mask {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: #fff;
+    opacity: 0.5;
+}
+
+.add {
+    display: none;
+    position: absolute;
+    z-index: 9;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 1;
+}
+
+.add form{
+    width: 500px;
+    padding: 50px 30px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+
+    border: 2px solid #FFADAD;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px #ccc;
+}
+
+.add form > input {
+    height: 30px;
+    width: 300px;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    /*border-radius: 10px;*/
+    background-color: transparent;
+}
+.add form > select {
+    align-self: flex-start;
+    margin-left: 72px;
+    height: 30px;
+    width: 100px;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    /*border-radius: 10px;*/
+    background-color: transparent;
+}
+
+.add-btn {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+.add-btn > input {
+    height: 30px;
+    outline: none;
+    padding: 0 10px;
+
+    background-color: transparent;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.add-btn > input:first-of-type {
+    color: #fff;
+    background-color: #FFADAD;
+}
+
+.add-btn > input:last-of-type {
+    color: #fff;
+    background-color: green;
+}
+
+#addStuTip {
+    height: 30px;
+}

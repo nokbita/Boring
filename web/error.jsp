@@ -11,10 +11,7 @@
     <title>测试页面</title>
 </head>
 <body>
-${pageContext.servletContext.contextPath}
-
-<script>
-
-</script>
+<h2 style="color: red;">非法访问！</h2>
+<a href="login.jsp">点击访问登录页面</a>
 </body>
 </html>

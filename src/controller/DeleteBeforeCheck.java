@@ -2,7 +2,6 @@ package controller;
 
 import entry.Student;
 import entry.vo.Tip;
-import service.StudentFactory;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -10,28 +9,18 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
-@WebServlet(name = "AddStu", value = "/AddStu.do")
-public class AddStu extends HttpServlet {
+@WebServlet(name = "DeleteBeforeCheck", value = "/DeleteBeforeCheck.do")
+public class DeleteBeforeCheck extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 封装学生对象
-        Student student = (Student) request.getAttribute("student");
-        // 添加学生对象
-        Student student1 = new StudentServiceImpl().addStu(student);
-
+        String no = request.getParameter("no");
         PrintWriter out = response.getWriter();
         Tip tip = null;
-        if (student1 != null) {
-            tip = new Tip("添加成功!","green", 1);
-            out.print("{" +
-                    "\"tip\":" + tip.toJSON() +
-                    "}");
-
+        if (no != null && !"".equals(no)) {
+            request.getRequestDispatcher("DeleteStu.do").forward(request, response);
         } else {
-            tip = new Tip("内部错误 500","red", 0);
+            tip = new Tip("学号不能为空，删除失败！","red", 0);
             out.print("{" +
                     "\"tip\":" + tip.toJSON() +
                     "}");

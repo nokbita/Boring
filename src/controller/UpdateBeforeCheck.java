@@ -1,6 +1,7 @@
 package controller;
 
 import entry.Student;
+import entry.vo.Tip;
 import service.StudentFactory;
 import service.impl.StudentServiceImpl;
 
@@ -16,10 +17,17 @@ public class UpdateBeforeCheck extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 封装学生对象
         Student student = StudentFactory.packagingByRequest(request);
+
         PrintWriter out = response.getWriter();
         if (student == null) {
-            out.println("{\"tip\":\"请正确修改学生信息！\",\"color\":\"green\"}");
+            Tip tip = new Tip("非法输入！","red",0);
+            out.print(
+                    "{" +
+                            "\"tip\":" + tip.toJSON() +
+                            "}"
+            );
         } else {
+            // 请求转发
             request.setAttribute("student",student);
             request.getRequestDispatcher("UpdateStu.do").forward(request, response);
         }

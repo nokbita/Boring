@@ -43,4 +43,14 @@ public class StudentServiceImpl implements StudentService {
         }
         return null;
     }
+
+    @Override
+    public Student deleteStuByNo(String no) {
+        Student student = studentDao.queryStuByNo(no);
+        int i = studentDao.deleteStuByNo(no);
+        if (i > 0) {
+            return student;
+        }
+        return null;
+    }
 }

@@ -16,4 +16,6 @@ public interface StudentService {
     ArrayList<Student> findStuByName(String findInfo);
 
     Student login(String no, String password);
+
+    Student deleteStuByNo(String no);
 }

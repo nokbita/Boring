@@ -17,15 +17,20 @@ public class StudentFactory {
             return null;
         }
 
-        // -1 表示没有录入成绩
-        grade = grade == null ? "-1" : grade;
+        // -1 表示没有录入性别
         int sex2 = -1;
+        if (sex.equals("1") || sex.equals("0")) {
+            sex2 = Integer.parseInt(sex);
+        }
+
+        // -1 表示没有录入成绩
         float grade2 = -1f;
         try {
-            sex2 = Integer.parseInt(sex);
-            grade2 = Float.parseFloat(grade);
+            if (grade != null && !"".equals(grade)) {
+                grade2 = Float.parseFloat(grade);
+            }
         } catch (NumberFormatException e) {
-            return null;
+            e.printStackTrace();
         }
 
         return new Student(no,password,name,sex2,grade2);

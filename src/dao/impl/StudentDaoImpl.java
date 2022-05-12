@@ -158,4 +158,21 @@ public class StudentDaoImpl implements StudentDao {
         return students;
 
     }
+
+    @Override
+    public int deleteStuByNo(String no) {
+        int i = 0;
+        try {
+            Connection connection = Database.getConnection();
+            String sql = "delete from student where no = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, no);
+
+            i = statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
 }

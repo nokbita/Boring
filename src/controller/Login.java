@@ -1,7 +1,9 @@
 package controller;
 
+import entry.Admin;
 import entry.Student;
 import entry.vo.Tip;
+import service.impl.AdminServiceImpl;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -19,13 +21,13 @@ public class Login extends HttpServlet {
         String no = request.getParameter("no");
         String password = request.getParameter("password");
 
-        Student student = new StudentServiceImpl().login(no, password);
+        Admin student = new AdminServiceImpl().login(no, password);
         // 登陆成功
         if (student != null) {
             // 保存登录账户
             request.getSession().setAttribute("loginAcc",student);
             // 重定向到信息管理界面
-            response.sendRedirect("./manager_info.jsp");
+            response.sendRedirect("./manage_info.jsp");
         } else {
             // 账号或密码错误，重定向到登录页面
             String urlParam = new Tip("账号或密码错误", "red", 0).toURLParam();

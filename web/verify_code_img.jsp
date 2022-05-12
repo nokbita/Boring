@@ -1,7 +1,8 @@
 <%@ page import="java.awt.image.BufferedImage" %>
 <%@ page import="java.awt.*" %>
 <%@ page import="java.util.Random" %>
-<%@ page import="javax.imageio.ImageIO" %><%--
+<%@ page import="javax.imageio.ImageIO" %>
+<%@ page import="java.awt.geom.AffineTransform" %><%--
   Created by IntelliJ IDEA.
   User: nokbita
   Date: 2022/5/6
@@ -23,23 +24,45 @@
     // 获取画笔
     Graphics graphics = image.getGraphics();
     // 设定背景色
-    graphics.setColor(new Color(200,200,200));
+    graphics.setColor(new Color(255,255,255));
     graphics.fillRect(0, 0, width, height);
     // 产生随机验证码
     Random r = new Random();
     int rNum = r.nextInt(8999) + 1000;
     String rStr = String.valueOf(rNum);
-    // 将验证啊存入 session
+    // 将验证码存入 session
     session.setAttribute("rStr", rStr);
     // 将验证码画到图片中
+    int xx = 8;
+    for (int i = 0; i < rStr.length(); i++) {
+        char c = rStr.charAt(i);
+        // 设置字体
+        int f = i % 2 == 0 ? 1 : 2;
+        graphics.setFont(new Font("", f, 20));
+        // 随机产生颜色
+        int rC = (int) (Math.random() * 255);
+        int gC = (int) (Math.random() * 255);
+        int bC = (int) (Math.random() * 255);
+        graphics.setColor(new Color(rC, gC, bC));
+        // 画字符串
+        graphics.drawString(String.valueOf(c), xx, 17);
+        xx += 12;
+    }
+
     graphics.setColor(Color.BLACK);
-    graphics.setFont(new Font("", Font.PLAIN, 20));
-    graphics.drawString(rStr, 10, 17);
-    // 产生随机的100个干扰点
-    for (int i = 0; i < 100; i++) {
+    // 产生随机的50个干扰点
+    for (int i = 0; i < 50; i++) {
         int x = r.nextInt(width);
         int y = r.nextInt(height);
         graphics.drawOval(x, y, 1, 1);
+    }
+    // 产生随机的4个直线干扰
+    for (int i = 0; i < 3; i++) {
+        int x = r.nextInt(width);
+        int y = r.nextInt(height);
+        int x2 = r.nextInt(width);
+        int y2 = r.nextInt(height);
+        graphics.drawLine(x,y,x2,y2);
     }
     // 输出图像到页面
     ImageIO.write(image, "JPEG", response.getOutputStream());

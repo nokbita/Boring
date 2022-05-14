@@ -1,6 +1,6 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
@@ -14,8 +14,8 @@ import java.io.PrintWriter;
 public class UpdateStu extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Student student = (Student) request.getAttribute("student");
-        Student student1 = new StudentServiceImpl().updateStu(student);
+        Warehouse student = (Warehouse) request.getAttribute("student");
+        Warehouse student1 = new StudentServiceImpl().updateStu(student);
         PrintWriter out = response.getWriter();
         if (student1 != null) {
             Tip tip = new Tip("更新成功！","red",1);

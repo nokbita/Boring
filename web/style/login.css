@@ -104,6 +104,11 @@ h2 {
     box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
 }
+.right > form > input:last-of-type:hover {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
 
 .tip {
     display: flex;

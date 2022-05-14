@@ -1,38 +1,22 @@
 package service;
 
-import entry.Student;
+import entry.Warehouse;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class StudentFactory {
-    public static Student packagingByRequest(HttpServletRequest request) {
-        String no = request.getParameter("no");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String sex = request.getParameter("sex");
-        String grade = request.getParameter("grade");
+    public static Warehouse packagingByRequest(HttpServletRequest request) {
+        String wno = request.getParameter("wno");
+        String wname = request.getParameter("wname");
+        String location = request.getParameter("location");
+        String square = request.getParameter("square");
+        String manager = request.getParameter("manager");
 
-        if (no == null || "".equals(no) || password == null || "".equals(password) ||
-                name == null || "".equals(name) || sex == null || "".equals(sex)) {
+        if (wno == null || "".equals(wno) || wname == null || "".equals(wname) ||
+                location == null || "".equals(location) || square == null || "".equals(square) || manager == null || "".equals(manager)) {
             return null;
         }
 
-        // -1 表示没有录入性别
-        int sex2 = -1;
-        if (sex.equals("1") || sex.equals("0")) {
-            sex2 = Integer.parseInt(sex);
-        }
-
-        // -1 表示没有录入成绩
-        float grade2 = -1f;
-        try {
-            if (grade != null && !"".equals(grade)) {
-                grade2 = Float.parseFloat(grade);
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        return new Student(no,password,name,sex2,grade2);
+        return new Warehouse(Integer.parseInt(wno),wname,location,Double.parseDouble(square),manager);
     }
 }

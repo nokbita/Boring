@@ -25,7 +25,7 @@ public class Interceptor implements Filter {
 
         String[] split = requestURI.split("/");
         String file = split[split.length - 1];
-        if (file.equals("manage_info.jsp") || file.equals("modifyPassword.jsp")) {
+        if (file.equals("manage.jsp") || file.equals("modifyPassword.jsp")) {
             Admin loginAcc = (Admin) req.getSession().getAttribute("loginAcc");
             if (loginAcc == null) {
                 resp.sendRedirect("login.jsp");

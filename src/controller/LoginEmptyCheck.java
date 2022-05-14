@@ -1,6 +1,5 @@
 package controller;
 
-import entry.Student;
 import entry.vo.Tip;
 
 import javax.servlet.*;
@@ -12,10 +11,10 @@ import java.io.IOException;
 public class LoginEmptyCheck extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String no = request.getParameter("no");
+        String account = request.getParameter("account");
         String password = request.getParameter("password");
 
-        if (no != null && !"".equals(no) && password != null && !"".equals(password)) {
+        if (account != null && !"".equals(account) && password != null && !"".equals(password)) {
             // 账号或密码不为空，转发到登录Servlet
             request.getRequestDispatcher("Login.do").forward(request, response);
         } else {

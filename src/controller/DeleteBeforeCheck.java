@@ -1,8 +1,6 @@
 package controller;
 
-import entry.Student;
 import entry.vo.Tip;
-import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -14,10 +12,10 @@ import java.io.PrintWriter;
 public class DeleteBeforeCheck extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String no = request.getParameter("no");
+        String wno = request.getParameter("wno");
         PrintWriter out = response.getWriter();
         Tip tip = null;
-        if (no != null && !"".equals(no)) {
+        if (wno != null && !"".equals(wno)) {
             request.getRequestDispatcher("DeleteStu.do").forward(request, response);
         } else {
             tip = new Tip("学号不能为空，删除失败！","red", 0);

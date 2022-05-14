@@ -1,12 +1,8 @@
 package controller;
 
-import dao.impl.AdminDaoImpl;
 import entry.Admin;
-import entry.Student;
 import entry.vo.Tip;
-import service.AdminService;
 import service.impl.AdminServiceImpl;
-import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

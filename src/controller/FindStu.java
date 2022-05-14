@@ -1,15 +1,10 @@
 package controller;
 
-import entry.Student;
-import entry.vo.Tip;
-import service.impl.StudentServiceImpl;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 @WebServlet(name = "FindStu", value = "/FindStu.do")
 public class FindStu extends HttpServlet {

@@ -1,6 +1,6 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
@@ -14,8 +14,8 @@ import java.io.PrintWriter;
 public class DeleteStu extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String no = request.getParameter("no");
-        Student student = new StudentServiceImpl().deleteStuByNo(no);
+        String wno = request.getParameter("wno");
+        Warehouse student = new StudentServiceImpl().deleteStuByNo(Integer.parseInt(wno));
 
         PrintWriter out = response.getWriter();
         Tip tip = null;

@@ -1,6 +1,6 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
@@ -15,13 +15,13 @@ import java.util.ArrayList;
 public class FindStuByNo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Student> students = new ArrayList<>();
-        Student student = new StudentServiceImpl().findStuByNo(request.getParameter("findInfo"));
-        students.add(student);
+        ArrayList<Warehouse> students = new ArrayList<>();
+        Warehouse warehouse = new StudentServiceImpl().findStuByNo(Integer.parseInt(request.getParameter("findInfo")));
+        students.add(warehouse);
 
         PrintWriter out = response.getWriter();
         Tip tip = null;
-        if (student == null) {
+        if (warehouse == null) {
             tip = new Tip("查询为空！", "black", 0);
         } else {
             tip = new Tip("", "", 1);

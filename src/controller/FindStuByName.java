@@ -1,6 +1,6 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class FindStuByName extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Student> students = new StudentServiceImpl().findStuByName(request.getParameter("findInfo"));
+        ArrayList<Warehouse> students = new StudentServiceImpl().findStuByName(request.getParameter("findInfo"));
 
         PrintWriter out = response.getWriter();
         Tip tip = null;

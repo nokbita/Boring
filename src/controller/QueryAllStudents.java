@@ -1,6 +1,6 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
 import service.impl.StudentServiceImpl;
 
@@ -9,19 +9,17 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 @WebServlet(name = "QueryAllStudents", value = "/QueryAllStudents.do")
 public class QueryAllStudents extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Student> students = new StudentServiceImpl().queryAllStudents();
+        ArrayList<Warehouse> warehouses = new StudentServiceImpl().queryAllWarehouses();
 
         PrintWriter out = response.getWriter();
         Tip tip = null;
-        if (students.isEmpty()) {
+        if (warehouses.isEmpty()) {
             tip = new Tip("查询为空！", "black", 0);
         } else {
             tip = new Tip("", "", 1);
@@ -29,7 +27,7 @@ public class QueryAllStudents extends HttpServlet {
         out.print(
                 "{" +
                 "\"tip\":" + tip.toJSON() + ", " +
-                "\"students\":" + students +
+                "\"students\":" + warehouses +
                 "}"
         );
     }

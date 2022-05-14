@@ -1,9 +1,8 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
 import service.StudentFactory;
-import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,7 +15,7 @@ public class UpdateBeforeCheck extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 封装学生对象
-        Student student = StudentFactory.packagingByRequest(request);
+        Warehouse student = StudentFactory.packagingByRequest(request);
 
         PrintWriter out = response.getWriter();
         if (student == null) {

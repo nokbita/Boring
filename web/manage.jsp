@@ -9,7 +9,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-    <title>管理学生信息页面</title>
+    <title>信息管理页面</title>
     <script src="./js/kong.js"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/style/master.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/style/manage_info.css">
@@ -22,13 +22,11 @@
 <div class="add">
     <form name="addStuForm">
         <div id="addStuTip"></div>
-        <input type="text" name="no" placeholder="学号">
-        <input type="text" name="password" placeholder="密码">
-        <input type="text" name="name" placeholder="姓名">
-        <select name="sex">
-            <option value="1">男</option>
-            <option value="0">女</option>
-        </select>
+        <input type="text" name="wno" placeholder="仓库号">
+        <input type="text" name="wname" placeholder="仓库名">
+        <input type="text" name="location" placeholder="仓库位置">
+        <input type="text" name="square" placeholder="仓库面积">
+        <input type="text" name="manager" placeholder="仓库管理员">
         <div class="add-btn">
             <input type="button" value="添加" onclick="addStu()">
             <input type="button" value="取消" onclick="closeAddFrame()">
@@ -38,7 +36,7 @@
 
     <div class="header">
         <div class="left">
-            <div class="loginAcc">欢迎管理员：${empty loginAcc.getName() ? "未登录" : loginAcc.getName()} &nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></div>
+            <div class="loginAcc">欢迎管理员：${empty loginAcc.getAccount() ? "未登录" : loginAcc.getAccount()} &nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></div>
         </div>
         <div class="right">
             <a href="${pageContext.servletContext.contextPath}/modifyPassword.jsp">修改密码</a>
@@ -51,8 +49,8 @@
         <div class="search">
             <form name="findStuForm">
                 <select name="findType">
-                    <option value="0">学号</option>
-                    <option value="1">姓名</option>
+                    <option value="0">仓库号</option>
+                    <option value="1">仓库名</option>
                 </select>
                 <span>：</span>
                 <input type="text" name="findInfo" placeholder="查找...">
@@ -68,10 +66,11 @@
             <table id="tableStu">
                 <tr>
                     <th>序号</th>
-                    <th>学号</th>
-                    <th>密码</th>
-                    <th>姓名</th>
-                    <th>性别</th>
+                    <th>仓库号</th>
+                    <th>仓库名</th>
+                    <th>仓库位置</th>
+                    <th>仓库面积</th>
+                    <th>仓库管理员</th>
                     <th>操作</th>
                     <th>提示</th>
                 </tr>
@@ -93,9 +92,11 @@ function openAddFrame() {
     let mask = document.getElementsByClassName("mask")[0];
     add.style.display = "block";
     mask.style.display = "block";
-    document.addStuForm.no.value = "";
-    document.addStuForm.name.value = "";
-    document.addStuForm.password.value = "";
+    document.addStuForm.wno.value = "";
+    document.addStuForm.wname.value = "";
+    document.addStuForm.location.value = "";
+    document.addStuForm.square.value = "";
+    document.addStuForm.manager.value = "";
 }
 
 function closeAddFrame() {
@@ -136,53 +137,69 @@ function generateTableTrs(tbody,students) {
     for (let i = 0; i < students.length; i++) {
         let tr = document.createElement("tr");
 
-        let noInput = document.createElement("input");
-        let passwordInput = document.createElement("input");
-        let nameInput = document.createElement("input");
-        let sexSelect = document.createElement("select");
-        let optionEmpty = document.createElement("option");
-        let optionMale = document.createElement("option");
-        let optionFemale = document.createElement("option");
+        let wnoInput = document.createElement("input");
+        let wnameInput = document.createElement("input");
+        let locationInput = document.createElement("input");
+        let squareInput = document.createElement("input");
+        let managerInput = document.createElement("input");
+
+        // let squareInput1 = document.createElement("select");
+        // let optionEmpty = document.createElement("option");
+        // let optionMale = document.createElement("option");
+        // let optionFemale = document.createElement("option");
+
         let modifyInput = document.createElement("input");
         let deleteInput = document.createElement("input");
 
-        noInput.id = "no" + i;
-        noInput.type = "text";
-        noInput.value = students[i].no;
-        noInput.name = "no";
-        noInput.setAttribute("disabled", "true");
+        wnoInput.id = "wno" + i;
+        wnoInput.type = "text";
+        wnoInput.value = students[i].wno;
+        wnoInput.name = "wno";
+        wnoInput.setAttribute("disabled", "true");
 
-        passwordInput.id = "password" + i;
-        passwordInput.type = "text";
-        passwordInput.value = students[i].password;
-        passwordInput.name = "password";
-        passwordInput.setAttribute("disabled", "true");
+        wnameInput.id = "wname" + i;
+        wnameInput.type = "text";
+        wnameInput.value = students[i].wname;
+        wnameInput.name = "wname";
+        wnameInput.setAttribute("disabled", "true");
 
-        nameInput.id = "name" + i;
-        nameInput.type = "name";
-        nameInput.value = students[i].name;
-        nameInput.name = "name";
-        nameInput.setAttribute("disabled", "true");
+        locationInput.id = "location" + i;
+        locationInput.type = "text";
+        locationInput.value = students[i].location;
+        locationInput.name = "location";
+        locationInput.setAttribute("disabled", "true");
 
-        sexSelect.id = "sex" + i;
-        optionEmpty.innerText = "未设置";
-        optionMale.value = "1";
-        optionMale.innerText = "男";
-        optionFemale.value = "0";
-        optionFemale.innerText = "女";
-        if (students[i].sex === "1" || students[i].sex === "0") {
-            if (students[i].sex === "1") {
-                optionMale.setAttribute("selected", "true");
-            }
-            if (students[i].sex === "0") {
-                optionFemale.setAttribute("selected", "true");
-            }
-        } else {
-            optionEmpty.setAttribute("selected", "true");
-        }
-        sexSelect.append(optionEmpty, optionMale, optionFemale);
-        sexSelect.name = "sex";
-        sexSelect.setAttribute("disabled", "true");
+        squareInput.id = "square" + i;
+        squareInput.type = "text";
+        squareInput.value = students[i].square;
+        squareInput.name = "square";
+        squareInput.setAttribute("disabled", "true");
+
+        managerInput.id = "manager" + i;
+        managerInput.type = "text";
+        managerInput.value = students[i].manager;
+        managerInput.name = "manager";
+        managerInput.setAttribute("disabled", "true");
+
+        // squareInput1.id = "sex" + i;
+        // optionEmpty.innerText = "未设置";
+        // optionMale.value = "1";
+        // optionMale.innerText = "男";
+        // optionFemale.value = "0";
+        // optionFemale.innerText = "女";
+        // if (students[i].sex === "1" || students[i].sex === "0") {
+        //     if (students[i].sex === "1") {
+        //         optionMale.setAttribute("selected", "true");
+        //     }
+        //     if (students[i].sex === "0") {
+        //         optionFemale.setAttribute("selected", "true");
+        //     }
+        // } else {
+        //     optionEmpty.setAttribute("selected", "true");
+        // }
+        // squareInput1.append(optionEmpty, optionMale, optionFemale);
+        // squareInput1.name = "sex";
+        // squareInput1.setAttribute("disabled", "true");
 
         modifyInput.id = "modifyBtn" + i;
         modifyInput.type = "button";
@@ -197,19 +214,21 @@ function generateTableTrs(tbody,students) {
         let td1 = document.createElement("td");
         td1.append(i + 1 + "");
         let td2 = document.createElement("td");
-        td2.appendChild(noInput);
+        td2.appendChild(wnoInput);
         let td3 = document.createElement("td");
-        td3.appendChild(passwordInput);
+        td3.appendChild(wnameInput);
         let td4 = document.createElement("td");
-        td4.appendChild(nameInput);
+        td4.appendChild(locationInput);
         let td5 = document.createElement("td");
-        td5.appendChild(sexSelect);
+        td5.appendChild(squareInput);
+        let td51 = document.createElement("td");
+        td51.appendChild(managerInput);
         let td6 = document.createElement("td");
         td6.append(modifyInput,deleteInput);
         let td7 = document.createElement("td");
         td7.id = "operationTip" + i;
 
-        tr.append(td1,td2,td3,td4,td5,td6,td7);
+        tr.append(td1,td2,td3,td4,td5,td51,td6,td7);
         tbody.appendChild(tr);
 
         tbodyAddDynamicEffect(tbody, "green");
@@ -231,7 +250,7 @@ function showAllStu() {
                 } else {
                     let tr = document.createElement("tr");
                     let td = document.createElement("td");
-                    td.colSpan = "7";
+                    td.colSpan = "8";
                     td.style.width = "100%";
                     td.style.color = result.tip.color;
                     td.innerText = result.tip.text;
@@ -265,7 +284,7 @@ function findStu() {
                 } else {
                     let tr = document.createElement("tr");
                     let td = document.createElement("td");
-                    td.colSpan = "7";
+                    td.colSpan = "8";
                     td.style.width = "100%";
                     td.style.color = result.tip.color;
                     td.innerText = result.tip.text;
@@ -273,6 +292,8 @@ function findStu() {
                     tbody.appendChild(tr);
                     // 添加动态效果
                     tbodyAddDynamicEffect(tbody,"red");
+                    // 清空查询框
+                    document.findStuForm.findInfo.value = "";
                 }
             } else {
                 // 异常处理
@@ -287,10 +308,11 @@ function addStu() {
         method: "post",
         url: "${pageContext.servletContext.contextPath}/AddBeforeCheck.do",
         data: {
-            no: document.addStuForm.no.value,
-            password: document.addStuForm.password.value,
-            name: document.addStuForm.name.value,
-            sex: document.addStuForm.sex.value,
+            wno: document.addStuForm.wno.value,
+            wname: document.addStuForm.wname.value,
+            location: document.addStuForm.location.value,
+            square: document.addStuForm.square.value,
+            manager: document.addStuForm.manager.value,
         },
         success: function (result) {
             let addStuTip = document.getElementById("addStuTip");
@@ -372,14 +394,16 @@ function modifyAndDelete2restore(order) {
 // 修改学生
 function modifyStu(order) {
     // 获取 input 标签对象
-    let passwordInput = document.getElementById("password" + order);
-    let nameInput = document.getElementById("name" + order);
-    let sexSelect = document.getElementById("sex" + order);
+    let wnameInput = document.getElementById("wname" + order);
+    let locationInput = document.getElementById("location" + order);
+    let squareInput = document.getElementById("square" + order);
+    let managerInput = document.getElementById("manager" + order);
 
     // 取消Input禁用状态
-    passwordInput.removeAttribute("disabled");
-    nameInput.removeAttribute("disabled");
-    sexSelect.removeAttribute("disabled");
+    wnameInput.removeAttribute("disabled");
+    locationInput.removeAttribute("disabled");
+    squareInput.removeAttribute("disabled");
+    managerInput.removeAttribute("disabled");
 
     // 修改按钮状态转换
     modify2Transition(order);
@@ -387,14 +411,16 @@ function modifyStu(order) {
 // 取消修改学生
 function cancelModifyStu(order) {
     // 获取 input 标签对象
-    let passwordInput = document.getElementById("password" + order);
-    let nameInput = document.getElementById("name" + order);
-    let sexSelect = document.getElementById("sex" + order);
+    let wnameInput = document.getElementById("wname" + order);
+    let locationInput = document.getElementById("location" + order);
+    let squareInput = document.getElementById("square" + order);
+    let managerInput = document.getElementById("manager" + order);
 
     // 还原 Input 禁用状态
-    passwordInput.setAttribute("disabled", "true");
-    nameInput.setAttribute("disabled", "true");
-    sexSelect.setAttribute("disabled", "true");
+    wnameInput.setAttribute("disabled", "true");
+    locationInput.setAttribute("disabled", "true");
+    squareInput.setAttribute("disabled", "true");
+    managerInput.setAttribute("disabled", "true");
 
     // 修改按钮状态还原
     modifyAndDelete2restore(order);
@@ -402,25 +428,28 @@ function cancelModifyStu(order) {
 // 确认修改学生
 function ensureModifyStu(order) {
     // 获取 input 标签对象
-    let noInput = document.getElementById("no" + order);
-    let passwordInput = document.getElementById("password" + order);
-    let nameInput = document.getElementById("name" + order);
-    let sexSelect = document.getElementById("sex" + order);
+    let wnoInput = document.getElementById("wno" + order);
+    let wnameInput = document.getElementById("wname" + order);
+    let locationInput = document.getElementById("location" + order);
+    let squareInput = document.getElementById("square" + order);
+    let managerInput = document.getElementById("manager" + order);
 
     // 还原Input禁用状态
-    passwordInput.setAttribute("disabled", "true");
-    nameInput.setAttribute("disabled", "true");
-    sexSelect.setAttribute("disabled", "true");
+    wnameInput.setAttribute("disabled", "true");
+    locationInput.setAttribute("disabled", "true");
+    squareInput.setAttribute("disabled", "true");
+    managerInput.setAttribute("disabled", "true");
 
     // 异步请求修改信息
     ajax({
         method: "post",
         url: "${pageContext.servletContext.contextPath}/UpdateBeforeCheck.do",
         data: {
-            no: noInput.value,
-            password: passwordInput.value,
-            name: nameInput.value,
-            sex: sexSelect.value
+            wno: wnoInput.value,
+            wname: wnameInput.value,
+            location: locationInput.value,
+            square: squareInput.value,
+            manager: managerInput.value,
         },
         success: function (result) {
             let operationTip = document.getElementById("operationTip" + order);
@@ -455,14 +484,14 @@ function cancelDeleteStu(order) {
 // 确认删除学生
 function ensureDeleteStu(order) {
     // 获取 input 标签对象
-    let noInput = document.getElementById("no" + order);
+    let wnoInput = document.getElementById("wno" + order);
 
     // 异步请求删除信息
     ajax({
         method: "post",
         url: "${pageContext.servletContext.contextPath}/DeleteBeforeCheck.do",
         data: {
-            no: noInput.value
+            wno: wnoInput.value
         },
         success: function (result) {
             let operationTip = document.getElementById("operationTip" + order);

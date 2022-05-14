@@ -1,53 +1,45 @@
 package service.impl;
 
-import dao.StudentDao;
-import dao.impl.StudentDaoImpl;
-import entry.Student;
-import service.StudentService;
+import dao.WarehouseDao;
+import dao.impl.WarehouseDaoImpl;
+import entry.Warehouse;
+import service.WarehouseService;
 
 import java.util.ArrayList;
 
-public class StudentServiceImpl implements StudentService {
-    private StudentDao studentDao = new StudentDaoImpl();
+public class StudentServiceImpl implements WarehouseService {
+    private WarehouseDao warehouseDao = new WarehouseDaoImpl();
 
     @Override
-    public ArrayList<Student> queryAllStudents() {
-        return studentDao.queryAllStu();
+    public ArrayList<Warehouse> queryAllWarehouses() {
+        return warehouseDao.queryAllStu();
     }
 
     @Override
-    public Student updateStu(Student student) {
-        return studentDao.updateStu(student.getNo(),student.getPassword(),student.getName(), student.getSex(), student.getGrade());
+    public Warehouse updateStu(Warehouse student) {
+        return warehouseDao.updateStu(student.getWno(), student.getWname(), student.getLocation(), student.getSquare(), student.getManager());
     }
 
     @Override
-    public Student addStu(Student student) {
-        return studentDao.insertStu(student.getNo(), student.getPassword(), student.getName(), student.getSex(), student.getGrade());
+    public Warehouse addStu(Warehouse student) {
+        return warehouseDao.insertStu(student.getWno(), student.getWname(), student.getLocation(), student.getSquare(), student.getManager());
     }
 
     @Override
-    public Student findStuByNo(String findInfo) {
-        return studentDao.queryStuByNo(findInfo);
+    public Warehouse findStuByNo(int findInfo) {
+        return warehouseDao.queryStuByNo(findInfo);
     }
 
     @Override
-    public ArrayList<Student> findStuByName(String findInfo) {
-        return studentDao.queryStuByName(findInfo);
+    public ArrayList<Warehouse> findStuByName(String findInfo) {
+        return warehouseDao.queryStuByName(findInfo);
     }
 
-    @Override
-    public Student login(String no, String password) {
-        Student student = studentDao.queryStuByNo(no);
-        if (student != null && student.getPassword().equals(password)) {
-            return student;
-        }
-        return null;
-    }
 
     @Override
-    public Student deleteStuByNo(String no) {
-        Student student = studentDao.queryStuByNo(no);
-        int i = studentDao.deleteStuByNo(no);
+    public Warehouse deleteStuByNo(int no) {
+        Warehouse student = warehouseDao.queryStuByNo(no);
+        int i = warehouseDao.deleteStuByNo(no);
         if (i > 0) {
             return student;
         }

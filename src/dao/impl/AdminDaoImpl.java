@@ -2,8 +2,6 @@ package dao.impl;
 
 import dao.AdminDao;
 import entry.Admin;
-import entry.Student;
-import service.AdminService;
 import utils.Database;
 
 import java.sql.Connection;
@@ -13,26 +11,23 @@ import java.sql.SQLException;
 
 public class AdminDaoImpl implements AdminDao {
     @Override
-    public Admin queryStuByNo(String no) {
-        Admin student = null;
+    public Admin queryStuByAccount(String account) {
+        Admin admin = null;
 
         try {
             Connection connection = Database.getConnection();
             PreparedStatement statement = null;
-            String sql = "select * from admin where no = ?";
+            String sql = "select * from user where account = ?";
             try {
                 statement = connection.prepareStatement(sql);
-                statement.setString(1,no);
+                statement.setString(1, account);
 
                 ResultSet resultSet = statement.executeQuery();
                 resultSet.next();
-                student = new Admin(
+                admin = new Admin(
                         resultSet.getInt("id"),
-                        resultSet.getString("no"),
-                        resultSet.getString("password"),
-                        resultSet.getString("name"),
-                        resultSet.getString("sex"),
-                        resultSet.getString("address")
+                        resultSet.getString("account"),
+                        resultSet.getString("password")
                 );
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -42,25 +37,22 @@ public class AdminDaoImpl implements AdminDao {
             e.printStackTrace();
         }
 
-        return student;
+        return admin;
     }
 
     @Override
-    public Admin updateStu(String no, String password, String name, String sex, String address) {
+    public Admin updateStu(String account, String password) {
         Admin student = null;
         try {
             Connection connection = Database.getConnection();
-            String sql = "update admin set password = ?, `name` = ?, sex = ?, address = ? where no = ?";
+            String sql = "update user set password = ? where account = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, password);
-            statement.setString(2, name);
-            statement.setString(3, sex);
-            statement.setString(4, address);
-            statement.setString(5, no);
+            statement.setString(2, account);
 
             int i = statement.executeUpdate();
             if (i > 0) {
-                student = this.queryStuByNo(no);
+                student = this.queryStuByAccount(account);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,8 +1,7 @@
 package controller;
 
-import entry.Student;
+import entry.Warehouse;
 import entry.vo.Tip;
-import service.StudentFactory;
 import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
@@ -10,17 +9,15 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 @WebServlet(name = "AddStu", value = "/AddStu.do")
 public class AddStu extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 封装学生对象
-        Student student = (Student) request.getAttribute("student");
+        Warehouse student = (Warehouse) request.getAttribute("student");
         // 添加学生对象
-        Student student1 = new StudentServiceImpl().addStu(student);
+        Warehouse student1 = new StudentServiceImpl().addStu(student);
 
         PrintWriter out = response.getWriter();
         Tip tip = null;

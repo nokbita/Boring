@@ -24,7 +24,7 @@
 
 <div class="header">
     <div class="left">
-        <div class="loginAcc">欢迎管理员：${empty loginAcc.getName() ? "未登录" : loginAcc.getName()} &nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></div>
+        <div class="loginAcc">欢迎管理员：${empty loginAcc.getAccount() ? "未登录" : loginAcc.getAccount()} &nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></div>
     </div>
     <div class="right">
         <a href="${pageContext.servletContext.contextPath}/Logout.do">退出登录</a>

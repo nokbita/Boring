@@ -1,33 +1,28 @@
 package controller;
 
 import entry.Admin;
-import entry.Student;
 import entry.vo.Tip;
 import service.impl.AdminServiceImpl;
-import service.impl.StudentServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 @WebServlet(name = "Login", value = "/Login.do")
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String no = request.getParameter("no");
+        String account = request.getParameter("account");
         String password = request.getParameter("password");
 
-        Admin student = new AdminServiceImpl().login(no, password);
+        Admin student = new AdminServiceImpl().login(account, password);
         // 登陆成功
         if (student != null) {
             // 保存登录账户
             request.getSession().setAttribute("loginAcc",student);
             // 重定向到信息管理界面
-            response.sendRedirect("./manage_info.jsp");
+            response.sendRedirect("./manage.jsp");
         } else {
             // 账号或密码错误，重定向到登录页面
             String urlParam = new Tip("账号或密码错误", "red", 0).toURLParam();

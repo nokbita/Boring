@@ -8,13 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>学生信息管理员登陆页面</title>
+    <title>管理员登陆页面</title>
     <script src="./js/kong.js"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/style/master.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/style/login.css">
 </head>
 <body>
-<div>测试账号为：001，密码：321</div>
+<div>测试账号为：admin，密码：admin</div>
 
 <div class="wrapper">
     <h2>管理员登录</h2>
@@ -23,7 +23,7 @@
         <div class="left"></div>
         <div class="right">
             <form name="loginForm" class="form">
-                <input type="text" name="no" placeholder="账号">
+                <input type="text" name="account" placeholder="账号">
                 <input type="password" name="password" placeholder="密码">
                 <div class="verify">
                     <input type="text" name="verifyCode" placeholder="验证码">
